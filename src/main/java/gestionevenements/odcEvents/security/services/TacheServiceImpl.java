@@ -1,9 +1,16 @@
 package gestionevenements.odcEvents.security.services;
 
+import gestionevenements.odcEvents.MailConfig.EmailConstructor;
+import gestionevenements.odcEvents.models.Notification;
 import gestionevenements.odcEvents.models.Tache;
+import gestionevenements.odcEvents.models.User;
+import gestionevenements.odcEvents.repository.NotificationRepository;
 import gestionevenements.odcEvents.repository.TacheRepository;
+import gestionevenements.odcEvents.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.hibernate.usertype.UserCollectionType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -15,6 +22,13 @@ import java.util.List;
 public class TacheServiceImpl implements TacheService{
     @Autowired
     private TacheRepository TR;
+
+    private EmailConstructor emailConstructor;
+
+    private JavaMailSender mailSender;
+    private final UserRepository userRepository;
+    private final NotificationRepository notificationRepository;
+
     @Override
     public Tache addTache(Tache tache) {
         return TR.save(tache);
@@ -54,11 +68,21 @@ public class TacheServiceImpl implements TacheService{
     @Override
     public void assignerTache(Long idTache, Long idUser) {
         Tache tache = TR.findById(idTache).orElse(null);
+        //recuperation de l'utilisateur
+        User user = userRepository.findById(idUser).get();
+        //creation de la notification
+        Notification notification = new Notification();
+        notification.setTitre(tache.getNomTache());
+        notification.setDate(new Date());
+        notification.setDescription("Cher utilisateur vous avez recu une nouvelle tache : " + tache.getDescriptionTache());
+        notificationRepository.save(notification);
+        user.getNotifications().add(notification);
         if (tache != null) {
             tache.setRoleUser();
             TR.save(tache);
         }
 
+        mailSender.send(emailConstructor.constructAssignerTacheEmail(user,tache));
     }
 
     @Override

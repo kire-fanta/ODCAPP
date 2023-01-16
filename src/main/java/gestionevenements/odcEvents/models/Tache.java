@@ -96,7 +96,9 @@ public class Tache {
     public Long getIdTache() {
         return idTache;
     }
-
+    // Relation many to one avec la classe Tache
+    @ManyToOne
+    private Status status;
 }
 
     

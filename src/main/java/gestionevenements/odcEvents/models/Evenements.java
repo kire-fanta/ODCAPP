@@ -31,4 +31,8 @@ public class Evenements {
 
     @OneToOne
     private User user;
+    // Relation many to one avec la classe Evenements
+    @ManyToOne
+
+    private Status status;
 }

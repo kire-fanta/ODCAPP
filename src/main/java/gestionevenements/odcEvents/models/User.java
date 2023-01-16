@@ -38,8 +38,8 @@ public class User {
         inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles = new HashSet<>();
 
-
-
+  @ManyToMany
+  private Set<Notification> notifications = new HashSet<>();
 
   public User() {
   }
@@ -88,5 +88,13 @@ public class User {
 
   public void setRoles(Set<Role> roles) {
     this.roles = roles;
+  }
+
+  public Set<Notification> getNotifications() {
+    return notifications;
+  }
+
+  public void setNotifications(Set<Notification> notifications) {
+    this.notifications = notifications;
   }
 }

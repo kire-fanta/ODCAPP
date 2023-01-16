@@ -15,22 +15,11 @@ public class Status {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idStatus;
 
-    // Statut de l'événement (en cours, à venir, terminé)
-    @Column(name = "status_evenement")
-    private String statusEvenement;
+    // Statut(en cours, à venir, terminé, à faire)
+    private String status;
 
-    // Statut de la tâche (en cours, à faire, terminé)
-    @Column(name = "status_tache")
-    private String statusTache;
 
-    // Relation many to one avec la classe Evenements
-    @ManyToOne
-    @JoinColumn(name = "id_evenements")
-    private Evenements evenements;
 
-    // Relation many to one avec la classe Tache
-    @ManyToOne
-    @JoinColumn(name = "id_tache")
-    private Tache tache;}
+}
 
 

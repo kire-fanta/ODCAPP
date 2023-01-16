@@ -24,13 +24,4 @@ public class Notification {
     private Date date;
     private String titre;
 
-
-    @OneToOne
-    private Tache taches;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable( name = "user_notification",
-            joinColumns = @JoinColumn(name = "notif_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> utilisateurs = new HashSet<>();
 }

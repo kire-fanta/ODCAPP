@@ -15,7 +15,7 @@ public class StatusController {
     private StatutService statutService;
 
     // Méthode pour récupérer tous les statuts en base de données
-    @GetMapping
+    @GetMapping("/all")
     public List<Status> findAll() {
         return statutService.findAll();
     }
@@ -27,7 +27,7 @@ public class StatusController {
     }
 
     // Méthode pour créer un nouveau statut en base de données
-    @PostMapping
+    @PostMapping("/add")
     public Status create(@RequestBody Status statut) {
         return statutService.create(statut);
     }

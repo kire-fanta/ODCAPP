@@ -41,7 +41,7 @@ public class EquipeController {
     /*
     * Cette méthode gère la requête HTTP PUT pour mettre à jour une équipe existante
     */
-    @PutMapping("/modifier")
+    @PutMapping("/update/{idequipe}")
     public Equipe update(@RequestBody Equipe equipe) {
         return equipeService.update(equipe);
     }
