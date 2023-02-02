@@ -28,11 +28,11 @@ public class Evenements {
     private boolean etat;
     private String description;
     private String lieu;
+    private  String image;
 
     @OneToOne
     private User user;
     // Relation many to one avec la classe Evenements
     @ManyToOne
-
     private Status status;
 }

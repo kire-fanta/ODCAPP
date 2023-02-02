@@ -15,6 +15,7 @@ public class SalleServiceImpl implements SalleService{
 
     @Override
     public Salles create(Salles salles) {
+
         return salleRepository.save(salles);
     }
 
@@ -69,5 +70,10 @@ public class SalleServiceImpl implements SalleService{
         // TODO Auto-generated method stub
         return salleRepository.findByDisponibilite(disponibilite);
 
+    }
+
+    @Override
+    public byte[] getImage(long id) {
+        return new byte[0];
     }
 }

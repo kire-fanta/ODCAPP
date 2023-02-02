@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class Salles {
     private String etage;
     private Boolean disponibilite;
     private String description;
+    private String image;
+    private int numero;
 
 
     @ManyToOne

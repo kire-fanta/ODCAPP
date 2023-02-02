@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+@CrossOrigin(origins = "http://localhost:8100",allowCredentials = "true")
 
 @RestController
 @RequestMapping("/tache")

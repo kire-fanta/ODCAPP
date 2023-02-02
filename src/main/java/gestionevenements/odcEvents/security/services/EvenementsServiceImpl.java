@@ -1,12 +1,15 @@
 package gestionevenements.odcEvents.security.services;
 
 import gestionevenements.odcEvents.models.Evenements;
+import gestionevenements.odcEvents.models.Status;
 import gestionevenements.odcEvents.repository.EvenementsRepository;
+import gestionevenements.odcEvents.repository.StatutRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,9 +20,10 @@ public class EvenementsServiceImpl implements EvenementsService{
 
     @Autowired
     private EvenementsRepository ER;
+    @Autowired
+    private StatutRepository statutRepository;
     @Override
     public Evenements addEvenement(Evenements evenement) {
-
         return  ER.save(evenement);
     }
 
@@ -57,6 +61,16 @@ public class EvenementsServiceImpl implements EvenementsService{
         return ER.findAll();
     }
 
+
+    //----------Une methode pour recuperer les evenement par status--------
+    @Override
+    public List<Evenements> getAllEvenementsByStatus(String status) {
+        //Recuperer la liste des evenements par status
+        Status status1 = statutRepository.findByStatus(status);
+        List<Evenements> evenements = ER.findAllByStatus(status1);
+        return evenements;
+    }
+
     @Override
     public Evenements getEvenementById(Long idEvenement) {
         return ER.findById(idEvenement).orElse(null);
@@ -66,4 +80,12 @@ public class EvenementsServiceImpl implements EvenementsService{
     public void deleteEvenement(Long idEvenement) {
         ER.deleteById(idEvenement);
     }
+
+    @Override
+    public byte[] getImage(long id) {
+        return new byte[0];
+    }
+
+
+
 }
