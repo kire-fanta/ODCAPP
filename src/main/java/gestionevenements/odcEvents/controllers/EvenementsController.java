@@ -16,7 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
-@CrossOrigin(origins = "http://localhost:8100",allowCredentials = "true")
+//@CrossOrigin(origins = "http://localhost:8100",allowCredentials = "true")
+@CrossOrigin
 @RestController
 @RequestMapping("evenements")
 public class EvenementsController {

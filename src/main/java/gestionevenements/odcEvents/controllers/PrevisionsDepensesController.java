@@ -8,8 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@CrossOrigin(origins = "http://localhost:8100",allowCredentials = "true")
-
+//@CrossOrigin(origins = "http://localhost:8100",allowCredentials = "true")
+@CrossOrigin
 @RestController
 @RequestMapping("/previsions-depenses")
 public class PrevisionsDepensesController {

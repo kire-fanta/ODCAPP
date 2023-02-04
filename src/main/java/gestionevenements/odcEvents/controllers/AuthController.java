@@ -33,7 +33,8 @@ import gestionevenements.odcEvents.payload.response.MessageResponse;
 import gestionevenements.odcEvents.security.jwt.JwtUtils;
 import gestionevenements.odcEvents.security.services.UserDetailsImpl;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+//@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
