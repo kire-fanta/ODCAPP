@@ -36,8 +36,10 @@ public class EvenementsServiceImpl implements EvenementsService{
             evenements.setUser(evenements.getUser());
             evenements.setDescription(evenement.getDescription());
             evenements.setNomEvenement(evenement.getNomEvenement());
-            evenements.setDate(evenement.getDate());
-            evenements.setHeure(evenement.getHeure());
+            evenements.setDatedebut(evenement.getDatedebut());
+            evenements.setDatefin(evenement.getDatefin());
+            evenements.setHeuredebut(evenement.getHeuredebut());
+            evenements.setHeurefin(evenement.getHeurefin());
             evenements.setLieu(evenement.getLieu());
             evenements.setTypeEvenement(evenement.getTypeEvenement());
 

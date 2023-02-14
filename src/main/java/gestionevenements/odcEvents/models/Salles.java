@@ -31,8 +31,8 @@ public class Salles {
     private int numero;
 
 
-    @ManyToOne
-    private Evenements evenements;
+    @OneToMany
+    private List<Evenements> evenements;
 
 
 

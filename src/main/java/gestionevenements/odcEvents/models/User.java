@@ -1,5 +1,7 @@
 package gestionevenements.odcEvents.models;
 
+import org.springframework.data.jpa.repository.Modifying;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,11 +11,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "users", 
-    uniqueConstraints = { 
-      @UniqueConstraint(columnNames = "username"),
-      @UniqueConstraint(columnNames = "email") 
-    })
+@Table(name = "users"
+    //uniqueConstraints = {
+      //@UniqueConstraint(columnNames = "username"),
+     // @UniqueConstraint(columnNames = "email")
+    //}
+    )
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,13 +53,13 @@ public class User {
   }
 
   private String prenom;
-  @NotBlank
-  @Size(max = 50)
-  @Email
+ // @NotBlank
+  //@Size(max = 50)
+  //@Email
   private String email;
 
-  @NotBlank
-  @Size(max = 120)
+  //@NotBlank
+  //@Size(max = 120)
   private String password;
 
   @ManyToMany(fetch = FetchType.LAZY)

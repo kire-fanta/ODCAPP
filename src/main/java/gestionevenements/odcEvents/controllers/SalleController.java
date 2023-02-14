@@ -68,7 +68,6 @@ public class SalleController {
                          @Param(" numero") int  numero,
                          @Param(" description") String description,
                          @Param(" etage") String etage,
-                         @Param(" evenement") Evenements evenements,
                          @Param("file") MultipartFile file
     ) {
         //traitement pour enregistrer l'image sur le disque dur
@@ -82,7 +81,6 @@ public class SalleController {
         salles1.setNombreplace(nombreplace);
         salles1.setDisponibilite(disponibilite);
         salles1.setNumero(numero);
-        salles1.setEvenements(evenements);
         salles1.setImage(SaveImage.save(file,nomfile));
         return salleService.create(salles1);
     }

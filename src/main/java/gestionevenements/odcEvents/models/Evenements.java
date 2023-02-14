@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -21,8 +23,10 @@ public class Evenements {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idEvenement;
     private String nomEvenement;
-    private Date date;
-    private int heure;
+    private LocalDate datedebut;
+    private LocalDate datefin;
+    private LocalTime heuredebut;
+    private LocalTime heurefin;
     private String typeEvenement;
     private int duree;
     private boolean etat;
