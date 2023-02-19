@@ -74,10 +74,13 @@ public class User {
   public User() {
   }
 
-  public User(String username, String email, String password) {
-    this.username = username;
+  public User(String nom, String prenom, String username, String email, String password) {
+    this.nom = nom;
+    this.prenom = prenom;
+      this.username = username;
     this.email = email;
     this.password = password;
+
   }
 
   public Long getId() {

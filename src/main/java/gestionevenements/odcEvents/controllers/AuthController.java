@@ -46,7 +46,9 @@ import org.thymeleaf.util.StringUtils;
 import static gestionevenements.odcEvents.image.UserImage.USER_FOLDER;
 
 //@CrossOrigin(origins = "*", maxAge = 3600)
-@CrossOrigin
+
+
+@CrossOrigin(value = {"http://localhost:8100","http://localhost:4200"},maxAge = 3600 , allowCredentials = "true")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -107,7 +109,9 @@ public class AuthController {
     }
 
     // Create new user's account
-    User user = new User(signUpRequest.getUsername(),
+    User user = new User(signUpRequest.getNom(),
+            signUpRequest.getPrenom(),
+            signUpRequest.getUsername(),
                signUpRequest.getEmail(),
                encoder.encode(signUpRequest.getPassword()));
 
