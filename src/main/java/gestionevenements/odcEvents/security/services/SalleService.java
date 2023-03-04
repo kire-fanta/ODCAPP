@@ -12,7 +12,7 @@ import java.util.List;
 public interface SalleService {
 
     // Creer Salle
-    Salles create(Salles salles);
+    Object create(Salles salles);
 
     // Afficher une salle par son id
     Salles read(long id);

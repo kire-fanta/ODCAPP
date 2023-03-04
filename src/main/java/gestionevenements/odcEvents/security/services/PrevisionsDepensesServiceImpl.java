@@ -1,5 +1,6 @@
 package gestionevenements.odcEvents.security.services;
 
+import gestionevenements.odcEvents.models.Evenements;
 import gestionevenements.odcEvents.models.PrevisionsDepenses;
 import gestionevenements.odcEvents.repository.PrevisionsDepensesRepository;
 import lombok.AllArgsConstructor;
@@ -18,7 +19,8 @@ public class PrevisionsDepensesServiceImpl implements PrevisionsDepensesService{
     }
 
     @Override
-    public PrevisionsDepenses gererPrevision(PrevisionsDepenses prevision) {
+    public PrevisionsDepenses gererPrevision(PrevisionsDepenses prevision, Evenements evenements) {
+        prevision.setEvenements(evenements);
         return repository.save(prevision);
     }
 

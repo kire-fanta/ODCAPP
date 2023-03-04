@@ -3,6 +3,7 @@ package gestionevenements.odcEvents.controllers;
 import gestionevenements.odcEvents.MailConfig.SaveImage;
 import gestionevenements.odcEvents.models.Evenements;
 import gestionevenements.odcEvents.models.Salles;
+import gestionevenements.odcEvents.payload.response.MessageResponse;
 import gestionevenements.odcEvents.security.services.SalleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -13,7 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 //@CrossOrigin(origins = "http://localhost:8100",allowCredentials = "true")
-@CrossOrigin
+//@CrossOrigin
+@CrossOrigin(origins = "*")
 
 @RestController
 @RequestMapping("/salles")
@@ -23,7 +25,7 @@ public class SalleController {
     SalleService salleService;
 
     @PostMapping("/add/O")
-    public Salles create(@RequestBody Salles salles) {
+    public Object create(@RequestBody Salles salles) {
         return salleService.create(salles);
     }
 
@@ -62,7 +64,7 @@ public class SalleController {
         return salleService.ParEtat(disponibilite);
     }
     @PostMapping("/add")
-    public Salles create(@Param("nombreplace") long nombreplace,
+    public Object create(@Param("nombreplace") long nombreplace,
                          @Param("libelle") String libelle,
                          @Param("disponibilite") Boolean disponibilite,
                          @Param(" numero") int  numero,
@@ -82,7 +84,8 @@ public class SalleController {
         salles1.setDisponibilite(disponibilite);
         salles1.setNumero(numero);
         salles1.setImage(SaveImage.save(file,nomfile));
-        return salleService.create(salles1);
+       return  salleService.create(salles1);
+
     }
 
 

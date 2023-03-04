@@ -31,6 +31,14 @@ public class TacheServiceImpl implements TacheService{
 
     @Override
     public Tache addTache(Tache tache) {
+        tache.setUtilisateurs(tache.getUtilisateurs());
+        tache.setStatus(tache.getStatus());
+        System.out.println("zzzzzzzzzzz "+tache.getUtilisateurs());
+        List<User> lesUsers = tache.getUtilisateurs();
+        lesUsers.forEach(user -> {
+            mailSender.send(emailConstructor.constructAssignerTacheEmail(user,tache ));
+
+        });
         return TR.save(tache);
     }
 
@@ -41,8 +49,7 @@ public class TacheServiceImpl implements TacheService{
             updatedTache.setNomTache(tache.getNomTache());
             updatedTache.setDescriptionTache(tache.getDescriptionTache());
             updatedTache.setDateEcheance(tache.getDateEcheance());
-            updatedTache.setStatutTache(tache.getStatutTache());
-            updatedTache.setRoleUser(tache.getRoleUser());
+
             TR.save(updatedTache);
             return updatedTache;
         } else {

@@ -5,6 +5,7 @@ import gestionevenements.odcEvents.models.Evenements;
 import gestionevenements.odcEvents.models.Salles;
 import gestionevenements.odcEvents.models.Status;
 import gestionevenements.odcEvents.models.User;
+import gestionevenements.odcEvents.payload.response.MessageResponse;
 import gestionevenements.odcEvents.repository.StatutRepository;
 import gestionevenements.odcEvents.repository.UserRepository;
 import gestionevenements.odcEvents.security.services.EvenementsService;
@@ -64,7 +65,7 @@ public class EvenementsController {
     }
 
     @PostMapping("/add/{id_status}/{id_user}")
-    public Evenements create(@Param("nomEvenement") String nomEvenement,
+    public Object create(@Param("nomEvenement") String nomEvenement,
                          @Param("lieu") String lieu,
                          @Param("etat") Boolean etat,
                          @Param("heuredebut") String heuredebut,
@@ -97,20 +98,34 @@ public class EvenementsController {
         Events.setImage(SaveImage.save(file,nomfile));
         Events.setDatedebut(datedebut1);
         Events.setDatefin(datefin1);
-        Events.setNomEvenement(nomEvenement);
-        Events.setHeuredebut(heuredebut1);
-        Events.setHeurefin(heurefin1);
-        Events.setEtat(false);
-        Events.setDescription(description);
-        Events.setTypeEvenement(typeEvenement);
-        Events.setDuree(duree);
 
-        Status status = statutRepository.findById(id_status).get();
-        Events.setStatus(status);
+        System.out.println("Debut "+Events.getDatedebut());
+        System.out.println("Fin "+Events.getDatefin());
 
-        User user = userRepository.findById(id_user).get();
-        Events.setUser(user);
-        return evenementsService.addEvenement(Events);
+
+        if(Events.getDatefin().isBefore(Events.getDatedebut())){
+
+            MessageResponse message = new MessageResponse("",false);
+            return message;
+        } else {
+            Events.setNomEvenement(nomEvenement);
+            Events.setHeuredebut(heuredebut1);
+            Events.setHeurefin(heurefin1);
+            Events.setEtat(false);
+            Events.setDescription(description);
+            Events.setTypeEvenement(typeEvenement);
+            Events.setDuree(duree);
+
+            Status status = statutRepository.findById(id_status).get();
+            Events.setStatus(status);
+
+            User user = userRepository.findById(id_user).get();
+            Events.setUser(user);
+             evenementsService.addEvenement(Events);
+            MessageResponse message = new MessageResponse("Evénement ajouté avec succès",true);
+            return message;
+        }
+
     }
 
 

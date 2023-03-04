@@ -1,6 +1,7 @@
 package gestionevenements.odcEvents.security.services;
 
 import gestionevenements.odcEvents.models.Salles;
+import gestionevenements.odcEvents.payload.response.MessageResponse;
 import gestionevenements.odcEvents.repository.SalleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,9 +15,19 @@ public class SalleServiceImpl implements SalleService{
     SalleRepository salleRepository;
 
     @Override
-    public Salles create(Salles salles) {
+    public Object create(Salles salles) {
 
-        return salleRepository.save(salles);
+        if(salleRepository.findByLibelle(salles.getLibelle()) != null){
+            MessageResponse message=new MessageResponse("Le nom de salle que vous avez saisi est déjà utilisé. Veuillez choisir un nom différent pour cette salle",false);
+            return message;
+        }
+        else{
+             salleRepository.save(salles);
+            MessageResponse message=new MessageResponse("Salle ajoutée",true);
+            return message;
+        }
+
+
     }
 
     @Override

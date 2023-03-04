@@ -5,8 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
-
+import java.util.List;
 
 
 @Entity
@@ -21,12 +22,11 @@ public class Tache {
     private String nomTache;
     private String descriptionTache;
     private Date dateEcheance;
-    private String statutTache;
-    private String roleUser;
 
-    @ManyToOne
+
+    @ManyToMany
     @JoinColumn(name = "id_utilisateur")
-    User utilisateurs;
+    private List<User> users = new ArrayList<>();
 
     @JoinColumn(name = "id_evenements")
     @ManyToOne
@@ -34,12 +34,12 @@ public class Tache {
 
 
 
-    public User getUtilisateurs() {
-        return utilisateurs;
+    public List<User> getUtilisateurs() {
+        return users;
     }
 
-    public void setUtilisateurs(User utilisateurs) {
-        this.utilisateurs = utilisateurs;
+    public void setUtilisateurs(List<User> utilisateurs) {
+        this.users = utilisateurs;
     }
 
     public String getNomTache() {
@@ -65,27 +65,6 @@ public class Tache {
     public void setDateEcheance(Date dateEcheance) {
         this.dateEcheance = dateEcheance;
     }
-
-    public String getStatutTache() {
-        return statutTache;
-    }
-
-    public void setStatutTache(String statutTache) {
-        this.statutTache = statutTache;
-    }
-
-    public String getRoleUser() {
-        return roleUser;
-    }
-
-    public void setRoleUser(String roleUser) {
-        this.roleUser = roleUser;
-    }
-
-    public void assignerTache(String roleUser) {
-        this.roleUser = roleUser;
-    }
-
     public void modifierDate(Date dateEcheance) {
         this.dateEcheance = dateEcheance;
     }

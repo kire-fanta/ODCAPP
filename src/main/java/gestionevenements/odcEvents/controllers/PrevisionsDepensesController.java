@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 //@CrossOrigin(origins = "http://localhost:8100",allowCredentials = "true")
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/previsions-depenses")
 public class PrevisionsDepensesController {
@@ -29,10 +29,10 @@ public class PrevisionsDepensesController {
         this.previsionsDepensesRepository = previsionsDepensesRepository;
     }
 
-    @PostMapping("/add")
-    public PrevisionsDepenses gererPrevision(@RequestBody PrevisionsDepenses prevision) {
+    @PostMapping("/add/{ideve}")
+    public PrevisionsDepenses gererPrevision(@RequestBody PrevisionsDepenses prevision,@PathVariable("ideve") Evenements evenements) {
         System.out.println("AAAA "+prevision.getPrixUnitaire());
-        return service.gererPrevision(prevision);
+        return service.gererPrevision(prevision,evenements);
     }
 
 

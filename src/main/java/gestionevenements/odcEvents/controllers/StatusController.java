@@ -1,24 +1,28 @@
 package gestionevenements.odcEvents.controllers;
 
 import gestionevenements.odcEvents.models.Status;
+import gestionevenements.odcEvents.models.StatusRepository;
 import gestionevenements.odcEvents.security.services.StatutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 //@CrossOrigin(origins = "http://localhost:8100",allowCredentials = "true")
-@CrossOrigin
+//@CrossOrigin
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/status")
 public class StatusController {
     // Injection de dépendance de la classe Service pour pouvoir utiliser les méthodes de création, lecture, mise à jour et suppression de statuts
     @Autowired
     private StatutService statutService;
+    @Autowired
+    private StatusRepository statusRepository;
 
     // Méthode pour récupérer tous les statuts en base de données
     @GetMapping("/all")
     public List<Status> findAll() {
-        return statutService.findAll();
+        return statusRepository.findAll();
     }
 
     // Méthode pour récupérer un statut par son identifiant

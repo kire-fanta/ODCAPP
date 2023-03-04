@@ -1,25 +1,41 @@
 package gestionevenements.odcEvents.controllers;
 
 import gestionevenements.odcEvents.models.Tache;
+import gestionevenements.odcEvents.models.User;
+import gestionevenements.odcEvents.repository.UserRepository;
 import gestionevenements.odcEvents.security.services.TacheService;
 import org.springframework.web.bind.annotation.*;
+import org.w3c.dom.UserDataHandler;
 
 import java.util.Date;
 import java.util.List;
 //@CrossOrigin(origins = "http://localhost:8100",allowCredentials = "true")
-@CrossOrigin
+//@CrossOrigin
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/tache")
 public class TacheController {
 
     private TacheService tacheService;
+    private final UserRepository userRepository;
 
-    public TacheController(TacheService tacheService) {
+    public TacheController(TacheService tacheService,
+                           UserRepository userRepository) {
         this.tacheService = tacheService;
+        this.userRepository = userRepository;
+    }
+
+    @PostMapping("/add/{id_user}")
+    public Tache addTache(@RequestBody Tache tache ,@PathVariable Long id_user) {
+        User user= userRepository.findById(id_user).get();
+
+        return tacheService.addTache(tache);
     }
 
     @PostMapping("/add")
-    public Tache addTache(@RequestBody Tache tache) {
+    public Object addTaches(@RequestBody Tache tache) {
+       // List<User> user= userRepository.findById(tache.getUtilisateurs().get(0).getId()).get();
+
         return tacheService.addTache(tache);
     }
 

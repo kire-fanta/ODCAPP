@@ -48,7 +48,8 @@ import static gestionevenements.odcEvents.image.UserImage.USER_FOLDER;
 //@CrossOrigin(origins = "*", maxAge = 3600)
 
 
-@CrossOrigin(value = {"http://localhost:8100","http://localhost:4200"},maxAge = 3600 , allowCredentials = "true")
+//@CrossOrigin(value = {"http://localhost:8100","http://localhost:4200"},maxAge = 3600 , allowCredentials = "true")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -99,13 +100,13 @@ public class AuthController {
     if (userRepository.existsByUsername(signUpRequest.getUsername())) {
       return ResponseEntity
           .badRequest()
-          .body(new MessageResponse("Error: Username is already taken!"));
+          .body(new MessageResponse("Error: Username is already taken!",false));
     }
 
     if (userRepository.existsByEmail(signUpRequest.getEmail())) {
       return ResponseEntity
           .badRequest()
-          .body(new MessageResponse("Error: Email is already in use!"));
+          .body(new MessageResponse("Error: Email is already in use!",false));
     }
 
     // Create new user's account
@@ -159,7 +160,7 @@ public class AuthController {
       e.printStackTrace();
     }
 
-    return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    return ResponseEntity.ok(new MessageResponse("User registered successfully!",true));
   }
 
   // Déconnexion d'un nouveau user
@@ -167,7 +168,7 @@ public class AuthController {
   public ResponseEntity<?> logoutUser() {
     ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
     return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
-            .body(new MessageResponse("Vous avez été déconnecté!"));
+            .body(new MessageResponse("Vous avez été déconnecté!",true));
   }
 
 
