@@ -11,7 +11,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Notification ")
+@Table(name = "Noti ")
+
 @Data
 
 @NoArgsConstructor
