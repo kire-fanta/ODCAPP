@@ -1,6 +1,8 @@
 package gestionevenements.odcEvents.controllers;
 
 import gestionevenements.odcEvents.models.Notification;
+import gestionevenements.odcEvents.models.User;
+import gestionevenements.odcEvents.repository.NotificationRepository;
 import gestionevenements.odcEvents.security.services.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,8 @@ import java.util.List;
 public class NotificationController {
     @Autowired
     private final NotificationService notificationService;
+    @Autowired
+    private NotificationRepository notificationRepository;
 
     public NotificationController(NotificationService notificationService) {
         this.notificationService = notificationService;
@@ -28,4 +32,12 @@ public class NotificationController {
     public List<Notification> recupererNotifications() {
         return notificationService.recupererNotifications();
     }
+
+
+    @GetMapping("/allbyUser/{user}")
+    public List<Notification> recupererNotification(@PathVariable("user") User user) {
+        return notificationRepository.findByUser(user);
+    }
+
+
 }

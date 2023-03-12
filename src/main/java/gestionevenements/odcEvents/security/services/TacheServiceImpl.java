@@ -18,13 +18,12 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-
 public class TacheServiceImpl implements TacheService{
     @Autowired
     private TacheRepository TR;
-
+    @Autowired
     private EmailConstructor emailConstructor;
-
+    @Autowired
     private JavaMailSender mailSender;
     private final UserRepository userRepository;
     private final NotificationRepository notificationRepository;
@@ -35,7 +34,19 @@ public class TacheServiceImpl implements TacheService{
         tache.setStatus(tache.getStatus());
         System.out.println("zzzzzzzzzzz "+tache.getUtilisateurs());
         List<User> lesUsers = tache.getUtilisateurs();
+
+
+
+
         lesUsers.forEach(user -> {
+            //creation de la notification
+            Notification notification = new Notification();
+            notification.setTitre(tache.getNomTache());
+            notification.setDate(new Date());
+            notification.setDescription("Cher utilisateur vous avez recu une nouvelle tache : " + tache.getDescriptionTache());
+
+            notification.setUser(user);
+            notificationRepository.save(notification);
             mailSender.send(emailConstructor.constructAssignerTacheEmail(user,tache ));
 
         });
@@ -82,6 +93,7 @@ public class TacheServiceImpl implements TacheService{
         notification.setTitre(tache.getNomTache());
         notification.setDate(new Date());
         notification.setDescription("Cher utilisateur vous avez recu une nouvelle tache : " + tache.getDescriptionTache());
+
         notificationRepository.save(notification);
         user.getNotifications().add(notification);
         if (tache != null) {

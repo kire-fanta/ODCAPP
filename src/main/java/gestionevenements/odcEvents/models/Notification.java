@@ -24,4 +24,8 @@ public class Notification {
     private Date date;
     private String titre;
 
+    @JoinColumn(name = "id_user")
+    @ManyToOne
+    private User user;
+
 }
